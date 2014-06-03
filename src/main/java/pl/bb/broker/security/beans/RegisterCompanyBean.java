@@ -3,6 +3,7 @@ package pl.bb.broker.security.beans;
 
 import pl.bb.broker.brokerdb.broker.entities.CompaniesEntity;
 import pl.bb.broker.brokerdb.broker.entities.UsersEntity;
+import pl.bb.broker.brokerdb.util.BrokerDBAuthUtil;
 import pl.bb.broker.brokerdb.util.BrokerDBUtil;
 import pl.bb.broker.security.settings.SecuritySettings;
 import pl.bb.broker.security.util.PasswordHasher;
@@ -37,6 +38,13 @@ public class RegisterCompanyBean {
     private String password1;
     private String password2;
 
+    @Size(min = 1, max = 40)
+    @NotNull
+    private String firstname;
+    @Size(min = 1, max = 40)
+    @NotNull
+    private String surname;
+
     @NotNull
     private String companyName;
 
@@ -53,12 +61,14 @@ public class RegisterCompanyBean {
         user.setUsername(username);
         String hashPwd = PasswordHasher.hashPassword(username, password1);
         user.setPassword(hashPwd);
+        user.setFirstname(firstname);
+        user.setSurname(surname);
         CompaniesEntity company = new CompaniesEntity();
         company.setCompanyname(companyName);
         company.setAddress(address);
         company.setPhone(phone);
         company.setUser(user);
-        BrokerDBUtil.INSTANCE.saveCompany(company);
+        BrokerDBAuthUtil.FACTORY.saveCompany(company);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Succesful company register!", null));
         return null;
     }
@@ -85,6 +95,22 @@ public class RegisterCompanyBean {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getCompanyName() {

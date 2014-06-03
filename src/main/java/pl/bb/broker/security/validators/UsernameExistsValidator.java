@@ -1,5 +1,6 @@
 package pl.bb.broker.security.validators;
 
+import pl.bb.broker.brokerdb.util.BrokerDBAuthUtil;
 import pl.bb.broker.brokerdb.util.BrokerDBUtil;
 
 import javax.faces.application.FacesMessage;
@@ -30,7 +31,7 @@ public class UsernameExistsValidator implements Validator {
         if(username == null || username.isEmpty())
             return; //let required=true do its job
 
-        if(BrokerDBUtil.INSTANCE.userExists(username)) {
+        if(BrokerDBAuthUtil.FACTORY.userExists(username)) {
             FacesMessage msg = new FacesMessage("Username already exists");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);   //change

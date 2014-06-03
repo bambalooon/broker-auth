@@ -1,14 +1,9 @@
 package pl.bb.broker.security.beans;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import pl.bb.broker.brokerdb.broker.entities.UsersEntity;
-import pl.bb.broker.brokerdb.util.BrokerDBUtil;
-import pl.bb.broker.brokerdb.util.HibernateUtil;
+import pl.bb.broker.brokerdb.util.BrokerDBAuthUtil;
 import pl.bb.broker.security.settings.SecuritySettings;
 import pl.bb.broker.security.util.PasswordHasher;
-import sun.security.util.Password;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -40,13 +35,22 @@ public class RegisterBean {
     private String password1;
     private String password2;
 
+    @Size(min = 1, max = 40)
+    @NotNull
+    private String firstname;
+    @Size(min = 1, max = 40)
+    @NotNull
+    private String surname;
+
     public String register() {
         FacesContext context = FacesContext.getCurrentInstance();
         UsersEntity user = new UsersEntity();
         user.setUsername(username);
         String hashPwd = PasswordHasher.hashPassword(username, password1);
         user.setPassword(hashPwd);
-        BrokerDBUtil.INSTANCE.saveUser(user);
+        user.setFirstname(firstname);
+        user.setSurname(surname);
+        BrokerDBAuthUtil.FACTORY.saveUser(user);
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Succesful register!", null));
         return null;
     }
@@ -73,5 +77,21 @@ public class RegisterBean {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }
