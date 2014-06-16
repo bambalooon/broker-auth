@@ -19,7 +19,7 @@
         <jaxws-rt.version>2.2.8</jaxws-rt.version>
         <annotation.version>1.2</annotation.version>
         <jaxws.version>2.2.11</jaxws.version>
-        <faces.version>2.1.7</faces.version>
+        <faces.version>2.2.7</faces.version>
         <servlet.version>3.1.0</servlet.version>
         <hibernate.version>4.3.5.Final</hibernate.version>
         <hibernate-validator.version>5.1.1.Final</hibernate-validator.version>
@@ -105,44 +105,44 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.jvnet.jax-ws-commons</groupId>
-                <artifactId>jaxws-maven-plugin</artifactId>
-                <version>${jaxws-maven.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate-client-wsdl</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>wsgen</goal>
-                        </goals>
-                        <configuration>
-                            <sei>pl.bb.broker.brokerauthentication.ws.authentication.AuthenticationServiceImpl</sei>
-                            <genWsdl>true</genWsdl>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-licence-wsdl</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                        <configuration>
-                            <wsdlDirectory>target/generated-sources/wsdl</wsdlDirectory>
-                            <destDir>target/wsgen/classes</destDir>
-                            <packageName>pl.bb.broker.brokerauthentication.ws.proxy</packageName>
-                        </configuration>
-                    </execution>
-                </executions>
+            <!--<plugin>-->
+                <!--<groupId>org.jvnet.jax-ws-commons</groupId>-->
+                <!--<artifactId>jaxws-maven-plugin</artifactId>-->
+                <!--<version>${jaxws-maven.version}</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>generate-client-wsdl</id>-->
+                        <!--<phase>process-classes</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>wsgen</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<sei>pl.bb.broker.brokerauthentication.ws.authentication.AuthenticationServiceImpl</sei>-->
+                            <!--<genWsdl>true</genWsdl>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>generate-licence-wsdl</id>-->
+                        <!--<phase>process-classes</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>wsimport</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<wsdlDirectory>target/generated-sources/wsdl</wsdlDirectory>-->
+                            <!--<destDir>target/wsgen/classes</destDir>-->
+                            <!--<packageName>pl.bb.broker.brokerauthentication.ws.proxy</packageName>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
 
-                <dependencies>
-                    <dependency>
-                        <groupId>pl.bb.broker</groupId>
-                        <artifactId>broker-authentication</artifactId>
-                        <version>${broker-auth.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+                <!--<dependencies>-->
+                    <!--<dependency>-->
+                        <!--<groupId>pl.bb.broker</groupId>-->
+                        <!--<artifactId>broker-authentication</artifactId>-->
+                        <!--<version>${broker-auth.version}</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
+            <!--</plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -51,7 +51,7 @@ public class RegisterBean {
         user.setFirstname(firstname);
         user.setSurname(surname);
         BrokerDBAuthUtil.FACTORY.saveUser(user);
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Succesful register!", null));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejestracja zakończona powodzeniem!", null));
         return null;
     }
 

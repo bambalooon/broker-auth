@@ -1,6 +1,7 @@
 package pl.bb.broker.security.beans;
 
 
+import org.hibernate.validator.constraints.Email;
 import pl.bb.broker.brokerdb.broker.entities.CompaniesEntity;
 import pl.bb.broker.brokerdb.broker.entities.UsersEntity;
 import pl.bb.broker.brokerdb.util.BrokerDBAuthUtil;
@@ -55,6 +56,14 @@ public class RegisterCompanyBean {
     @Pattern(regexp = SecuritySettings.PHONE_PATTERN)
     private String phone;
 
+    @NotNull
+    @Size(max = 100)
+    @Email
+    private String email;
+
+    @Size(max = 100)
+    private String resources;
+
     public String registerCompany() {
         FacesContext context = FacesContext.getCurrentInstance();
         UsersEntity user = new UsersEntity();
@@ -67,9 +76,11 @@ public class RegisterCompanyBean {
         company.setCompanyname(companyName);
         company.setAddress(address);
         company.setPhone(phone);
+        company.setEmail(email);
+        company.setResources(resources);
         company.setUser(user);
         BrokerDBAuthUtil.FACTORY.saveCompany(company);
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Succesful company register!", null));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Rejestracja firmy zakończona powodzeniem!", null));
         return null;
     }
 
@@ -135,5 +146,21 @@ public class RegisterCompanyBean {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getResources() {
+        return resources;
+    }
+
+    public void setResources(String resources) {
+        this.resources = resources;
     }
 }
